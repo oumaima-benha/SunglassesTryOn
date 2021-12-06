@@ -15,18 +15,50 @@
         _isResized = !_isResized;
       }
 
+      function main() {
+        JEELIZVTOWIDGET.start({
+          sku: 'rayban_aviator_or_vertFlash',
+          searchImageMask: 'https://appstatic.jeeliz.com/jeewidget/images/target.png',
+          searchImageColor: 0xeeeeee,
+          callbackReady: function(){
+            console.log('INFO: JEELIZVTOWIDGET is ready :)');
+          },
+          onError: function(errorLabel){ // this function catches errors, so you can display custom integrated messages
+            alert('An error happened. errorLabel =' + errorLabel)
+            switch(errorLabel) {
+              case 'WEBCAM_UNAVAILABLE':
+                // the user has no camera, or does not want to share it.
+                break;
+              case 'INVALID_SKU':
+                // the provided SKU does not match with a glasses model
+                break;
+              case 'PLACEHOLDER_NULL_WIDTH':
+              case 'PLACEHOLDER_NULL_HEIGHT':
+                // Something is wrong with the placeholder
+                // (element whose id='JeelizVTOWidget')
+                break;
+                
+              case 'FATAL':
+              default:
+                // a bit error happens:(
+                break;
+            } // end switch
+          } // end onError()
+        }) // end JEELIZVTOWIDGET.start call
+      } // end main()
 
-
-
-
-
-
-      function load_modelBySKU(){
+function load_modelBySKU(){
         const sku = prompt('Please enter a glasses model SKU:', 'rayban_wayfarer_havane_marron');
         if (sku){
           JEELIZVTOWIDGET.load(sku);
         }
       }
+
+
+
+
+
+      
 
     </script>
   </head>
